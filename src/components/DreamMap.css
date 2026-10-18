@@ -1,0 +1,243 @@
+.dream-map-card {
+  margin-bottom: var(--space-3xl);
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+}
+
+.map-header {
+  margin-bottom: var(--space-xl);
+}
+
+.dream-map-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 320px;
+  max-height: 460px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: linear-gradient(170deg, #18122B 0%, #291B4E 60%, #392868 100%);
+  border: 1px solid var(--border);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.4);
+}
+
+.map-sky-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.map-crescent-moon {
+  position: absolute;
+  top: 18px;
+  right: 28px;
+  font-size: 2.2rem;
+  filter: drop-shadow(0 0 15px rgba(255, 217, 122, 0.6));
+  animation: float 5s ease-in-out infinite;
+}
+
+.map-sky-star {
+  position: absolute;
+  color: #FFE69A;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.map-route-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.route-line {
+  stroke: var(--golden-light);
+  stroke-width: 2.5;
+  stroke-dasharray: 6 6;
+  opacity: 0.6;
+}
+
+.route-active {
+  stroke: var(--golden);
+  stroke-width: 3.5;
+  stroke-dasharray: 8 4;
+  animation: dash-crawl 0.6s linear infinite;
+  opacity: 1;
+}
+
+@keyframes dash-crawl {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.map-pins-container {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.map-node-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--pin-accent);
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all var(--duration-fast);
+}
+
+.map-node-pin:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  z-index: 10;
+}
+
+.pin-selected {
+  transform: translate(-50%, -50%) scale(1.15);
+  background: #FFF;
+  border-color: var(--golden);
+  box-shadow: 0 0 18px rgba(255, 217, 122, 0.8);
+  z-index: 9;
+}
+
+.pin-hub {
+  border-width: 3px;
+  border-color: var(--berry-light);
+}
+
+.pin-emoji {
+  font-size: 1.1rem;
+}
+
+.pin-label-pill {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #2D1B4E;
+  white-space: nowrap;
+}
+
+.pin-halo {
+  position: absolute;
+  inset: -6px;
+  border-radius: var(--radius-full);
+  border: 2px dashed var(--golden);
+  animation: spin-slow 8s linear infinite;
+}
+
+.courier-pip-sprite {
+  position: absolute;
+  z-index: 20;
+  font-size: 1.5rem;
+  animation: courier-flight 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes courier-flight {
+  0% {
+    left: var(--start-x);
+    top: var(--start-y);
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  50% {
+    transform: translate(-50%, -80%) scale(1.3);
+  }
+  100% {
+    left: var(--target-x);
+    top: var(--target-y);
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.map-dashboard-panel {
+  margin-top: var(--space-lg);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--accent) 5%, var(--bg-card));
+  border: 1px solid var(--border);
+}
+
+.dest-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.dest-emoji {
+  font-size: 2rem;
+  padding: 8px;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.dest-name {
+  font-size: 1.2rem;
+  color: var(--text-heading);
+  margin-bottom: 2px;
+}
+
+.dest-type {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
+.dest-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: var(--space-lg);
+}
+
+.dest-btn-group {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.delivery-status-success {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: color-mix(in srgb, #4E9F3D 15%, var(--bg-card));
+  border: 1px solid #4E9F3D;
+  color: #4E9F3D;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+}
+
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  margin-left: auto;
+}
+
+.empty-map-prompt {
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  padding: var(--space-md);
+}
+
+@media (max-width: 768px) {
+  .dream-map-viewport {
+    aspect-ratio: 4 / 3;
+  }
+  .pin-label-pill {
+    display: none;
+  }
+  .map-node-pin {
+    padding: 6px;
+  }
+}

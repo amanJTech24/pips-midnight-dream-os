@@ -1,0 +1,146 @@
+.settings-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.settings-drawer {
+  width: 100%;
+  max-width: 360px;
+  height: 100%;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border);
+  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.2);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  animation: slide-in-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.settings-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-xs);
+}
+
+.drawer-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.drawer-title-row h3 {
+  font-size: 1.25rem;
+  color: var(--text-heading);
+}
+
+.drawer-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.drawer-close-btn:hover {
+  color: var(--accent);
+}
+
+.settings-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-xl);
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  flex: 1;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--accent) 3%, var(--bg-card));
+}
+
+.setting-label-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.setting-title {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.setting-help {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.toggle-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  white-space: nowrap;
+}
+
+.toggle-pill-btn:hover {
+  border-color: var(--accent);
+}
+
+.active-pill {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.chaos-pill {
+  background: #FF0055;
+  color: #FFF;
+  border-color: #FF0055;
+  animation: pulse-glow 0.8s infinite;
+}
+
+.settings-footer {
+  margin-top: var(--space-xl);
+  text-align: center;
+  border-top: 1px dashed var(--border);
+  padding-top: var(--space-md);
+}
+
+.os-badge-chip {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}

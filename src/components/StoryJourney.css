@@ -1,0 +1,144 @@
+.story-journey {
+  position: relative;
+  background: color-mix(in srgb, var(--accent) 3%, var(--bg));
+}
+
+.journey-timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-xl) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+}
+
+.timeline-spine-track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 28px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--lavender) 50%, var(--golden) 100%);
+  opacity: 0.4;
+  border-radius: var(--radius-full);
+}
+
+.journey-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xl);
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.journey-card.scene-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.journey-badge-node {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 3px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 15px color-mix(in srgb, var(--accent) 30%, transparent);
+  z-index: 2;
+}
+
+.node-number {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.journey-content-card {
+  flex: 1;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: var(--space-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.journey-content-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--scene-bg);
+}
+
+.journey-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.scene-phase-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.scene-emoji-icon {
+  font-size: 1.6rem;
+}
+
+.scene-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: var(--text-heading);
+  margin-bottom: var(--space-md);
+}
+
+.scene-narrative-prose {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text);
+  white-space: pre-line;
+  margin-bottom: var(--space-lg);
+}
+
+.scene-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  border-top: 1px dashed var(--border);
+  padding-top: var(--space-sm);
+}
+
+@media (max-width: 768px) {
+  .timeline-spine-track {
+    left: 18px;
+  }
+
+  .journey-badge-node {
+    width: 38px;
+    height: 38px;
+  }
+
+  .node-number {
+    font-size: 0.85rem;
+  }
+
+  .journey-card {
+    gap: var(--space-sm);
+  }
+}

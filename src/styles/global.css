@@ -1,0 +1,235 @@
+/* ═══════════════════════════════════════════════════════
+   Pip's Midnight Dream OS — Global Styles
+   ═══════════════════════════════════════════════════════ */
+@import './tokens.css';
+@import './animations.css';
+@import './responsive.css';
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background-color: var(--bg);
+  line-height: 1.6;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  transition: background-color var(--duration-slow) var(--ease-out),
+              color var(--duration-slow) var(--ease-out);
+}
+
+/* ── Paper grain texture overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px;
+}
+
+[data-theme="night"] body::before {
+  opacity: 0.04;
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--text-heading);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 600; }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2.5rem); font-weight: 600; }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 500; }
+h4 { font-size: 1rem; font-weight: 500; }
+
+p {
+  max-width: 65ch;
+  line-height: 1.7;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+a:hover { color: var(--accent-hover); }
+
+/* ── Focus States ── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Utility ── */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.7em 1.5em;
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.btn-primary {
+  background: var(--berry);
+  color: var(--white);
+  border-color: var(--berry);
+}
+.btn-primary:hover {
+  background: var(--berry-dark);
+  border-color: var(--berry-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: var(--white);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--berry);
+  border-color: var(--berry);
+}
+.btn-secondary:hover {
+  background: var(--berry);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+[data-theme="night"] .btn-primary {
+  background: var(--golden);
+  color: var(--night-bg);
+  border-color: var(--golden);
+}
+[data-theme="night"] .btn-primary:hover {
+  background: var(--golden-light);
+  border-color: var(--golden-light);
+}
+[data-theme="night"] .btn-secondary {
+  color: var(--golden);
+  border-color: var(--golden);
+}
+[data-theme="night"] .btn-secondary:hover {
+  background: var(--golden);
+  color: var(--night-bg);
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* ── Section Spacing ── */
+.section {
+  padding: var(--space-4xl) 0;
+}
+.section-title {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+.section-title h2 {
+  margin-bottom: var(--space-sm);
+}
+.section-title p {
+  color: var(--text-muted);
+  margin: 0 auto;
+  font-size: 1.05rem;
+}
+
+/* ── Decorative Star ── */
+.star {
+  display: inline-block;
+  color: var(--golden);
+  font-size: 0.8em;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ── Selection ── */
+::selection {
+  background: var(--berry);
+  color: var(--white);
+}
+
+[data-theme="night"] ::selection {
+  background: var(--golden);
+  color: var(--night-bg);
+}

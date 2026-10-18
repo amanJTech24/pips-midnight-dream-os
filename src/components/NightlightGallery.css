@@ -1,0 +1,206 @@
+.nightlight-card {
+  margin-bottom: var(--space-3xl);
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+}
+
+.nightlight-header {
+  margin-bottom: var(--space-xl);
+}
+
+.nightlight-stage-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: stretch;
+}
+
+.lantern-preview-chamber {
+  position: relative;
+  min-height: 340px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background-color: var(--ambient-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+  padding: var(--space-lg);
+}
+
+.chamber-dark {
+  background-color: #0e0a1a !important;
+  border-color: #31234c;
+}
+
+.chamber-glow-field {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+  pointer-events: none;
+  transition: background 0.4s ease;
+  filter: blur(15px);
+}
+
+.lantern-mount {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lantern-img {
+  width: 170px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.15));
+}
+
+.chamber-controls-overlay {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 3;
+}
+
+.chamber-dim-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+
+.chamber-dim-toggle:hover {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.active-lamp-banner {
+  position: absolute;
+  bottom: var(--space-md);
+  left: var(--space-md);
+  right: var(--space-md);
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+[data-theme="night"] .active-lamp-banner {
+  background: rgba(25, 20, 45, 0.85);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.lamp-banner-name {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.lamp-banner-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.nightlight-picker-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brightness-value {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.styled-slider {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.swatches-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+.swatch-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  text-align: left;
+}
+
+.swatch-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.swatch-card.selected {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg-card));
+  box-shadow: var(--shadow-sm);
+}
+
+.swatch-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  flex-shrink: 0;
+  transition: box-shadow 0.2s ease;
+}
+
+.swatch-name {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .nightlight-stage-grid {
+    grid-template-columns: 1fr;
+  }
+}

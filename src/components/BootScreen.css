@@ -1,0 +1,102 @@
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--night-bg);
+  color: var(--night-text);
+}
+
+.boot-container {
+  max-width: 520px;
+  width: 90%;
+  padding: var(--space-2xl);
+  position: relative;
+}
+
+.boot-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--golden);
+  margin-bottom: var(--space-xl);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.boot-stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.boot-star {
+  position: absolute;
+  color: var(--golden-light);
+  opacity: 0.4;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.boot-terminal {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.boot-moon {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  color: var(--golden);
+  opacity: 0.3;
+  animation: float 4s ease-in-out infinite;
+}
+
+.boot-line {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--night-text);
+  margin-bottom: var(--space-sm);
+  animation: boot-line 0.3s ease-out both;
+  line-height: 1.6;
+}
+
+.boot-prompt {
+  color: var(--golden);
+  margin-right: var(--space-xs);
+}
+
+.boot-blink {
+  animation: blink-cursor 1s step-end infinite;
+}
+
+.boot-actions {
+  margin-top: var(--space-xl);
+  text-align: center;
+}
+
+.boot-enter {
+  animation: fade-in 0.4s ease-out both;
+}
+
+.boot-skip {
+  background: none;
+  border: none;
+  color: var(--night-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: var(--space-sm) var(--space-md);
+  transition: color var(--duration-fast);
+}
+.boot-skip:hover {
+  color: var(--golden);
+}

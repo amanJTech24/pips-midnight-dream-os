@@ -1,0 +1,259 @@
+.lullaby-lab-card {
+  margin-bottom: var(--space-3xl);
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+}
+
+.lullaby-header {
+  margin-bottom: var(--space-xl);
+}
+
+.project-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-sm);
+  text-transform: uppercase;
+}
+
+.project-tagline {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: var(--space-xs);
+}
+
+.lullaby-body {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+
+.lullaby-visual-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.music-box-stage {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 15%, transparent), transparent 70%);
+  border-radius: 50%;
+  transition: all var(--duration-normal);
+}
+
+.stage-playing {
+  box-shadow: 0 0 35px color-mix(in srgb, var(--golden) 40%, transparent);
+}
+
+.music-box-img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.1));
+}
+
+.music-waves {
+  position: absolute;
+  inset: -15px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.wave {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--golden);
+  border-radius: 50%;
+  animation: pulse-glow 2s infinite ease-out;
+  opacity: 0.6;
+}
+
+.wave-2 { animation-delay: 0.6s; }
+.wave-3 { animation-delay: 1.2s; }
+
+.status-indicator-box {
+  margin-top: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.badge-idle {
+  background: color-mix(in srgb, var(--border) 60%, transparent);
+  color: var(--text-muted);
+}
+
+.badge-active {
+  background: var(--accent);
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mute-warning {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: var(--space-xs);
+}
+
+.lullaby-controls-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.control-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.mood-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+}
+
+.mood-btn {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-xs);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mood-btn:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.mood-btn.active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--mood-accent) 25%, var(--bg-card));
+  box-shadow: var(--shadow-sm);
+}
+
+.mood-btn-label {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.mood-btn-desc {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+.play-action-area {
+  display: flex;
+}
+
+.play-btn {
+  width: 100%;
+  justify-content: center;
+  padding: var(--space-md);
+  font-size: 1rem;
+}
+
+.mini-piano-section {
+  background: color-mix(in srgb, var(--accent) 4%, var(--bg-card));
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.piano-keys-row {
+  display: flex;
+  gap: 6px;
+  justify-content: space-between;
+}
+
+.piano-key {
+  flex: 1;
+  height: 64px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 6px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--border);
+  transition: all 0.08s ease;
+}
+
+[data-theme="night"] .piano-key {
+  background: #342D52;
+  border-color: #4D4275;
+  box-shadow: 0 3px 0 #201A38;
+}
+
+.piano-key:hover {
+  background: color-mix(in srgb, var(--accent) 15%, var(--white));
+  border-color: var(--accent);
+}
+
+.piano-key:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.key-note {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.key-solfege {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .lullaby-body {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .mood-buttons {
+    grid-template-columns: 1fr;
+  }
+}
