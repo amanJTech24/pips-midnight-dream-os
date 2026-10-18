@@ -132,6 +132,39 @@
   animation: pulse-glow 0.8s infinite;
 }
 
+.setting-item-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--accent) 3%, var(--bg-card));
+}
+
+.slider-header-inline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.setting-title-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.volume-val-txt {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .settings-footer {
   margin-top: var(--space-xl);
   text-align: center;

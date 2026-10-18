@@ -38,5 +38,14 @@ export const projects = [
     tagline: 'A gentle bedtime story Pip wrote and illustrated.',
     description: "Pip's favorite bedtime story about a little star who forgot how to shine — and the gentle journey to find its light again.",
     color: '#D4E8D4',
+  },
+  {
+    id: 'star-catcher',
+    title: "Pip's Star Catcher",
+    icon: 'Gamepad2',
+    filename: 'Star_Catcher.game',
+    tagline: 'A starlight arcade mini-game powered by cloud cushions.',
+    description: 'Catch falling stars in Pip’s cloud basket before bedtime arrives! Starlight fragments power the bedside lanterns across the nursery.',
+    color: '#FFD97A',
   }
 ];

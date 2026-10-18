@@ -1,15 +1,35 @@
-import { useEffect, useRef, useState } from 'react';
-import { Star, ArrowDown, Sparkles } from 'lucide-react';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { Star, ArrowDown, Sparkles, Heart, Smile, Sparkle, Coffee, Moon } from 'lucide-react';
 import './PipHero.css';
 
 /**
- * PipHero — The main hero section introducing Pip.
- * Features subtle eye-tracking on desktop, floating stars, and clear CTAs.
+ * PipHero — The interactive character hero centerpiece.
+ * Features:
+ * - Subtle pointer eye/head tracking with touch fallback
+ * - Clickable Pip with dynamic playful speech bubbles & cute giggles
+ * - Contextual mood states (Sleepy, Giggly, Curious, Dreaming, Surprised)
+ * - Live "Pip is currently..." early-web status marquee
  */
-export default function PipHero({ isNight }) {
+export default function PipHero({ isNight, playClick, playGiggle }) {
   const heroRef = useRef(null);
   const [eyeOffset, setEyeOffset] = useState({ x: 0, y: 0 });
+  const [mood, setMood] = useState('Sleepy');
+  const [speech, setSpeech] = useState("Hi! I'm Pip. Welcome to my Midnight Dream OS! 🌙");
+  const [isBouncing, setIsBouncing] = useState(false);
   const isTouchDevice = useRef(false);
+
+  const speechLines = [
+    "Teehee! That tickles my nightcap! ✨",
+    "Did you know moonbeams feel like warm silk? 🌙",
+    "Hooray! What dream shall we construct tonight?",
+    "Shh... if you listen closely, crickets sing in F-major! 🎶",
+    "*Yaaawn*... I was just daydreaming about moon cookies! 🍪",
+    "Every pillow holds a universe. Let's find your door! 💫",
+    "I hate silence, but I love soft bedtime lullabies! 🎵",
+    "Look at the stars above! Each one is a wrapped wish. ⭐"
+  ];
+
+  const moods = ['Sleepy', 'Giggly', 'Curious', 'Dreaming', 'Delighted'];
 
   useEffect(() => {
     isTouchDevice.current = 'ontouchstart' in window;
@@ -20,7 +40,7 @@ export default function PipHero({ isNight }) {
       const rect = heroRef.current.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      const maxOffset = 6;
+      const maxOffset = 7;
       const x = ((e.clientX - centerX) / (rect.width / 2)) * maxOffset;
       const y = ((e.clientY - centerY) / (rect.height / 2)) * maxOffset;
       setEyeOffset({
@@ -33,25 +53,46 @@ export default function PipHero({ isNight }) {
     return () => window.removeEventListener('mousemove', handleMouse);
   }, []);
 
+  const handlePipClick = useCallback(() => {
+    if (playGiggle) {
+      playGiggle();
+    } else if (playClick) {
+      playClick();
+    }
+
+    setIsBouncing(true);
+    setTimeout(() => setIsBouncing(false), 600);
+
+    // Pick random speech line different from current
+    const available = speechLines.filter(line => line !== speech);
+    const nextLine = available[Math.floor(Math.random() * available.length)];
+    setSpeech(nextLine);
+
+    // Cycle mood
+    const nextMood = moods[(moods.indexOf(mood) + 1) % moods.length];
+    setMood(nextMood);
+  }, [playGiggle, playClick, speech, mood]);
+
   const scrollTo = (id) => {
+    if (playClick) playClick();
     const el = document.querySelector(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <section id="hero" className="hero section" ref={heroRef} aria-label="Meet Pip">
-      {/* Decorative floating elements */}
+      {/* Decorative floating night elements */}
       <div className="hero-decor" aria-hidden="true">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(9)].map((_, i) => (
           <Star
             key={i}
-            size={Math.random() * 14 + 8}
+            size={Math.random() * 12 + 8}
             className="hero-star animate-twinkle"
             style={{
-              left: `${10 + Math.random() * 80}%`,
+              left: `${8 + Math.random() * 84}%`,
               top: `${10 + Math.random() * 80}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${2 + Math.random() * 3}s`,
+              animationDelay: `${(i * 0.4).toFixed(1)}s`,
+              animationDuration: `${2.5 + (i % 3)}s`,
             }}
           />
         ))}
@@ -61,10 +102,10 @@ export default function PipHero({ isNight }) {
 
       <div className="hero-content wrap">
         <div className="hero-text">
-          <p className="hero-system-tag">
-            <Sparkles size={14} />
-            Midnight Nursery OS v1.0
-          </p>
+          <div className="hero-system-status-pill">
+            <span className="status-blip" aria-hidden="true" />
+            <span className="status-text">Pip is currently: Fluffing cloud pillows at 12:00 AM ☁️</span>
+          </div>
 
           <h1 className="hero-name">
             Meet <span className="hero-name-accent">Pip</span>
@@ -79,11 +120,25 @@ export default function PipHero({ isNight }) {
           </blockquote>
 
           <p className="hero-intro">
-            A curious, sleepy, easily delighted little soul who designs dreams, 
-            lullabies, nightlights, and bedtime stories for the neighborhood's 
-            tiniest creatures. Pip giggles at everything and hates silence more 
-            than anything in the world.
+            A curious, sleepy, clumsy little soul with a round skull face, glowing amber eyes,
+            and a starry nightcap. Pip composes lullabies, shapes bedtime nightlights, and
+            delivers hand-wrapped dreams to neighborhood creatures. Pip giggles at everything and hates silence.
           </p>
+
+          <div className="hero-mood-bar">
+            <span className="mood-label">Current Mood:</span>
+            <button
+              type="button"
+              className="mood-chip"
+              onClick={handlePipClick}
+              title="Click Pip to tickle his nightcap!"
+              aria-label={`Pip's mood is ${mood}. Click to tickle Pip.`}
+            >
+              <Sparkles size={14} className="mood-icon star" />
+              <span>{mood}</span>
+              <span className="mood-tap-hint">(tap to tickle)</span>
+            </button>
+          </div>
 
           <div className="hero-buttons">
             <button className="btn btn-primary" onClick={() => scrollTo('#projects')}>
@@ -94,38 +149,49 @@ export default function PipHero({ isNight }) {
               Read Pip's Story
               <ArrowDown size={16} />
             </button>
+            <button className="btn btn-ghost" onClick={() => scrollTo('#game')}>
+              ⭐ Play Star Catcher
+            </button>
           </div>
         </div>
 
         <div className="hero-avatar-wrapper">
+          {/* Animated Interactive Speech Bubble */}
+          <div className="pip-speech-bubble" role="status" aria-live="polite">
+            <p className="pip-speech-text">{speech}</p>
+            <span className="bubble-tail" aria-hidden="true" />
+          </div>
+
           <div className="hero-avatar-glow" aria-hidden="true" />
-          <div
-            className="hero-avatar-container"
+          
+          <button
+            type="button"
+            className={`hero-avatar-btn ${isBouncing ? 'pip-giggle-bounce' : ''}`}
+            onClick={handlePipClick}
+            aria-label="Click Pip to tickle him and hear a cute giggle"
+            title="Click Pip! (Teehee!)"
             style={{
-              transform: `translate(${eyeOffset.x * 0.5}px, ${eyeOffset.y * 0.5}px)`,
+              transform: `translate(${eyeOffset.x * 0.45}px, ${eyeOffset.y * 0.45}px)`,
             }}
           >
             <img
               src="/assets/pip_avatar_cloud.png"
-              alt="Pip, a cute baby with a skull face, sitting on a fluffy cloud, waving. Pip wears a starry nightcap with a pink bow and has warm glowing amber eyes."
+              alt="Pip, a cute baby with a skull face sitting on a fluffy cloud, wearing a nightcap with a pink bow and warm amber glowing eyes."
               className="hero-avatar"
               width="400"
               height="400"
               loading="eager"
             />
-          </div>
-          {/* CSS eye-follow overlay for subtle tracking effect */}
-          <div className="hero-eyes" aria-hidden="true"
-            style={{
-              transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)`,
-            }}
-          />
+            <span className="avatar-click-badge" aria-hidden="true">
+              <Smile size={14} /> Click me!
+            </span>
+          </button>
         </div>
       </div>
 
       <div className="hero-scroll-hint" aria-hidden="true">
         <ArrowDown size={16} className="hero-scroll-arrow" />
-        <span>Scroll to explore</span>
+        <span>Scroll to enter Pip's Midnight Workstation</span>
       </div>
     </section>
   );

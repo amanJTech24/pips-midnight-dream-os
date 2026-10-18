@@ -35,6 +35,17 @@ export default function EasterEgg({ playChime }) {
     }
   };
 
+  // Close on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   return (
     <>
       <div className="easter-egg-trigger-zone" title="Pip's quiet midnight corner">

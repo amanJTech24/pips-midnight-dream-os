@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { MessageSquare, Send, Sparkles, User, Heart } from 'lucide-react';
+import { MessageSquare, Send, Sparkles, User, Heart, Trash2, Info } from 'lucide-react';
 import './Guestbook.css';
 
 /**
- * Guestbook — Browser-local nursery guestbook with sanitized rendering and input validation.
+ * Guestbook — Browser-local nursery guestbook with sanitized rendering,
+ * input validation, and ability to delete own notes.
  */
 export default function Guestbook({ playClick, playChime }) {
   const [entries, setEntries] = useState([]);
@@ -18,19 +19,28 @@ export default function Guestbook({ playClick, playChime }) {
       if (stored) {
         setEntries(JSON.parse(stored));
       } else {
-        // Initial friendly starter entries
+        // Initial friendly canon starter entries
         const defaults = [
           {
-            id: '1',
+            id: 'default-1',
             name: 'Sleepy Cloud Owl',
-            message: 'Pip, the midnight croissant dream was delicious! Thank you! 🥐☁️',
-            date: 'Oct 18, 2026'
+            message: 'Pip, the midnight lavender croissant dream was delicious! Thank you! 🥐☁️',
+            date: 'Oct 18, 2026',
+            isUser: false
           },
           {
-            id: '2',
+            id: 'default-2',
             name: 'Ghost Bunny',
             message: 'No more fear of silence. The music box melody kept me cozy all night! 🐰💫',
-            date: 'Oct 17, 2026'
+            date: 'Oct 17, 2026',
+            isUser: false
+          },
+          {
+            id: 'default-3',
+            name: 'Tiny Moth of Lantern Way',
+            message: 'The aurora nightlight is the warmest green I have ever seen. Goodnight Pip! 🏮',
+            date: 'Oct 16, 2026',
+            isUser: false
           }
         ];
         setEntries(defaults);
@@ -50,7 +60,7 @@ export default function Guestbook({ playClick, playChime }) {
 
     if (!trimmedName || !trimmedMsg) {
       setFeedback({ type: 'error', text: 'Please fill in both your name and dream note!' });
-      setTimeout(() => setFeedback(null), 3000);
+      setTimeout(() => setFeedback(null), 3500);
       return;
     }
 
@@ -58,7 +68,8 @@ export default function Guestbook({ playClick, playChime }) {
       id: String(Date.now()),
       name: trimmedName.slice(0, 30),
       message: trimmedMsg.slice(0, 200),
-      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      isUser: true // Flags this note as created by the current visitor
     };
 
     const updated = [newEntry, ...entries].slice(0, 25);
@@ -76,6 +87,15 @@ export default function Guestbook({ playClick, playChime }) {
     setTimeout(() => setFeedback(null), 4000);
   };
 
+  const handleDeleteEntry = (id) => {
+    if (playClick) playClick();
+    const updated = entries.filter((item) => item.id !== id);
+    setEntries(updated);
+    try {
+      localStorage.setItem('pip-guestbook', JSON.stringify(updated));
+    } catch { /* storage error */ }
+  };
+
   return (
     <section id="guestbook" className="guestbook section" aria-label="Dream Guestbook">
       <div className="wrap">
@@ -83,15 +103,18 @@ export default function Guestbook({ playClick, playChime }) {
           <h2>
             <MessageSquare size={22} className="star" aria-hidden="true" /> Dream Guestbook
           </h2>
-          <p>Leave a note under Pip's pillow. Messages are securely stored locally in your browser.</p>
+          <p>Leave a note under Pip's pillow. Messages are stored securely inside your browser.</p>
         </div>
 
         <div className="guestbook-container">
           <div className="guestbook-form-card card">
             <h3 className="form-heading">Leave a Note for Pip</h3>
-            <p className="form-disclaimer">
-              ℹ️ Stored locally in your browser (demo mode). Does not post to a public server.
-            </p>
+            <div className="local-storage-disclaimer">
+              <Info size={14} />
+              <span>
+                Browser Demo Storage: Your notes are saved in your local browser only and won't be sent to an external server.
+              </span>
+            </div>
 
             <form onSubmit={handleSubmit} className="guestbook-form">
               <div className="form-group">
@@ -127,7 +150,7 @@ export default function Guestbook({ playClick, playChime }) {
                   required
                   rows={4}
                   maxLength={200}
-                  placeholder="Tell Pip what kind of dream you wish to dream tonight..."
+                  placeholder="Tell Pip what kind of dream you wish to fall asleep inside tonight..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   className="form-textarea"
@@ -156,8 +179,24 @@ export default function Guestbook({ playClick, playChime }) {
               {entries.map((item) => (
                 <article key={item.id} className="entry-card card" tabIndex={0}>
                   <div className="entry-header">
-                    <span className="entry-author">{item.name}</span>
-                    <time className="entry-date">{item.date}</time>
+                    <div className="entry-author-box">
+                      <span className="entry-author">{item.name}</span>
+                      {item.isUser && <span className="entry-you-badge">Your Note</span>}
+                    </div>
+                    <div className="entry-meta-right">
+                      <time className="entry-date">{item.date}</time>
+                      {item.isUser && (
+                        <button
+                          type="button"
+                          className="entry-delete-btn"
+                          onClick={() => handleDeleteEntry(item.id)}
+                          title="Delete your note"
+                          aria-label={`Delete note by ${item.name}`}
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                      )}
+                    </div>
                   </div>
                   <p className="entry-body">{item.message}</p>
                 </article>

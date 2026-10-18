@@ -1,8 +1,33 @@
 .footer {
   background: color-mix(in srgb, var(--border) 25%, var(--bg));
   border-top: 1px solid var(--border);
-  padding: var(--space-3xl) 0 var(--space-xl);
+  padding: 0 0 var(--space-xl);
   margin-top: var(--space-4xl);
+  position: relative;
+}
+
+/* ── Nursery Wire Ticker ── */
+.nursery-news-ticker {
+  background: color-mix(in srgb, var(--accent) 15%, var(--bg-card));
+  border-bottom: 1px solid var(--border);
+  padding: 6px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  margin-bottom: var(--space-2xl);
+}
+
+.ticker-track {
+  display: inline-flex;
+  gap: 40px;
+  animation: ticker-slide 32s linear infinite;
+}
+
+@keyframes ticker-slide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 .footer-content {
@@ -63,6 +88,129 @@
   color: var(--text-muted);
 }
 
+/* ── Retro 88x31 Badges & Webring ── */
+.footer-early-web-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-top: 1px dashed var(--border);
+  margin-bottom: var(--space-lg);
+}
+
+.retro-badges-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.retro-badge {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
+  cursor: default;
+  transition: transform var(--duration-fast);
+}
+
+.retro-badge:hover {
+  transform: translateY(-2px);
+}
+
+.badge-dreaming {
+  background: #A34063;
+  color: #FFF;
+  border-color: #7A2F4A;
+}
+
+.badge-netscape {
+  background: #1B2A4A;
+  color: #FFD97A;
+  border-color: #0E1626;
+}
+
+.badge-starlight {
+  background: #FFF8E7;
+  color: #B8860B;
+  border-color: #DAA520;
+}
+
+[data-theme="night"] .badge-starlight {
+  background: #2D2550;
+  color: #FFD97A;
+}
+
+.badge-pip {
+  background: #D4C4E8;
+  color: #4A2E6B;
+  border-color: #9B7CC4;
+}
+
+.badge-top {
+  opacity: 0.85;
+}
+
+.badge-bot {
+  letter-spacing: 0.04em;
+}
+
+.webring-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.webring-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.webring-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+}
+
+.webring-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.webring-btn:hover {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.webring-current {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
 .footer-bottom-bar {
   border-top: 1px dashed var(--border);
   padding-top: var(--space-md);
@@ -93,6 +241,16 @@
 
   .footer-col-actions {
     align-items: center;
+  }
+
+  .footer-early-web-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .retro-badges-group {
+    justify-content: center;
   }
 
   .footer-bottom-bar {

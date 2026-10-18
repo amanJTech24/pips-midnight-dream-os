@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { Settings, X, Moon, Sun, Volume2, VolumeX, Eye, Sparkles, Zap } from 'lucide-react';
+import { Settings, X, Moon, Sun, Volume2, VolumeX, Eye, Sparkles, Zap, Flashlight, Sliders } from 'lucide-react';
 import './SettingsPanel.css';
 
 /**
- * SettingsPanel — Slide-out drawer controlling audio, theme, reduced motion, sparkles, and chaos mode.
+ * SettingsPanel — Slide-out drawer controlling audio, theme, volume,
+ * nightlight flashlight, reduced motion, sparkles, and chaos mode.
  */
 export default function SettingsPanel({
   isOpen,
@@ -12,6 +13,10 @@ export default function SettingsPanel({
   toggleTheme,
   isMuted,
   toggleMute,
+  volume = 0.7,
+  setVolume,
+  nightlightCursor,
+  setNightlightCursor,
   reducedMotion,
   setReducedMotion,
   sparklesEnabled,
@@ -62,9 +67,9 @@ export default function SettingsPanel({
           {/* Theme Option */}
           <div className="setting-item">
             <div className="setting-label-col">
-              <span className="setting-title">Dream Mode</span>
+              <span className="setting-title">Dream Theme</span>
               <span className="setting-help">
-                {theme === 'night' ? 'Nightfall deep purple' : 'Cozy daytime cream'}
+                {theme === 'night' ? 'Nightfall deep purple' : 'Warm daytime ivory cream'}
               </span>
             </div>
             <button
@@ -77,15 +82,15 @@ export default function SettingsPanel({
               aria-label={`Toggle theme: currently ${theme}`}
             >
               {theme === 'night' ? <Moon size={16} /> : <Sun size={16} />}
-              <span>{theme === 'night' ? 'Night' : 'Day'}</span>
+              <span>{theme === 'night' ? 'Night Mode' : 'Day Mode'}</span>
             </button>
           </div>
 
-          {/* Sound Option */}
+          {/* Sound Mute Option */}
           <div className="setting-item">
             <div className="setting-label-col">
               <span className="setting-title">Nursery Audio</span>
-              <span className="setting-help">Synthesizer chimes & lullabies</span>
+              <span className="setting-help">Procedural chimes, lullabies & clicks</span>
             </div>
             <button
               type="button"
@@ -101,11 +106,51 @@ export default function SettingsPanel({
             </button>
           </div>
 
+          {/* Master Volume Slider */}
+          {!isMuted && (
+            <div className="setting-item-slider">
+              <div className="slider-header-inline">
+                <span className="setting-title-sm"><Sliders size={13} /> Master Volume</span>
+                <span className="volume-val-txt">{Math.round(volume * 100)}%</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
+                value={volume}
+                onChange={(e) => setVolume && setVolume(parseFloat(e.target.value))}
+                className="styled-slider"
+                aria-label="Master Volume Slider"
+              />
+            </div>
+          )}
+
+          {/* Nightlight Flashlight Cursor Option */}
+          <div className="setting-item">
+            <div className="setting-label-col">
+              <span className="setting-title">Lantern Flashlight</span>
+              <span className="setting-help">Soft glowing halo illuminates cursor</span>
+            </div>
+            <button
+              type="button"
+              className={`toggle-pill-btn ${nightlightCursor ? 'active-pill' : ''}`}
+              onClick={() => {
+                if (playClick) playClick();
+                setNightlightCursor(prev => !prev);
+              }}
+              aria-label="Toggle flashlight cursor halo"
+            >
+              <Flashlight size={16} />
+              <span>{nightlightCursor ? 'Lit' : 'Off'}</span>
+            </button>
+          </div>
+
           {/* Sparkles Option */}
           <div className="setting-item">
             <div className="setting-label-col">
               <span className="setting-title">Cursor Starlight</span>
-              <span className="setting-help">Trailing sparkles behind mouse</span>
+              <span className="setting-help">Trailing star specks behind mouse</span>
             </div>
             <button
               type="button"
@@ -145,7 +190,7 @@ export default function SettingsPanel({
           <div className="setting-item">
             <div className="setting-label-col">
               <span className="setting-title">Chaos Mode 🌪️</span>
-              <span className="setting-help">Retro tilts, scanlines & party energy</span>
+              <span className="setting-help">Playful retro tilts, CRT scanlines & party energy</span>
             </div>
             <button
               type="button"
@@ -163,7 +208,7 @@ export default function SettingsPanel({
         </div>
 
         <div className="settings-footer">
-          <span className="os-badge-chip">OS Build: 2026.10.18</span>
+          <span className="os-badge-chip">OS Build: 2026.10.18 // Midnight Nursery</span>
         </div>
       </div>
     </div>

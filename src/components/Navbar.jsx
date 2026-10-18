@@ -11,6 +11,7 @@ export default function Navbar({ theme, toggleTheme, isMuted, toggleMute, onSett
   const navItems = [
     { label: 'About', href: '#about' },
     { label: 'Projects', href: '#projects' },
+    { label: 'Game', href: '#game' },
     { label: 'Story', href: '#story' },
     { label: 'Map', href: '#dream-map' },
     { label: 'Guestbook', href: '#guestbook' },

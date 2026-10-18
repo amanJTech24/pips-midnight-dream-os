@@ -1,0 +1,35 @@
+.nightlight-flashlight-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9996;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nightlight-flashlight-layer.is-visible {
+  opacity: 1;
+}
+
+.flashlight-radial-halo {
+  position: absolute;
+  top: var(--light-y);
+  left: var(--light-x);
+  transform: translate(-50%, -50%);
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--glow-tint) 0%,
+    rgba(255, 230, 160, 0.08) 45%,
+    transparent 70%
+  );
+  filter: blur(12px);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+[data-reduced-motion="true"] .nightlight-flashlight-layer {
+  display: none;
+}

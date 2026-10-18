@@ -21,10 +21,18 @@
   margin-bottom: var(--space-xs);
 }
 
-.form-disclaimer {
+.local-storage-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
   font-size: 0.75rem;
   color: var(--text-muted);
+  background: color-mix(in srgb, var(--accent) 6%, var(--bg-card));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
   margin-bottom: var(--space-lg);
+  line-height: 1.4;
 }
 
 .guestbook-form {
@@ -176,6 +184,12 @@
   margin-bottom: 6px;
 }
 
+.entry-author-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .entry-author {
   font-family: var(--font-heading);
   font-size: 0.85rem;
@@ -183,10 +197,44 @@
   color: var(--accent);
 }
 
+.entry-you-badge {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  background: color-mix(in srgb, var(--golden) 25%, var(--bg-card));
+  color: var(--brown);
+  border: 1px solid var(--golden);
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+}
+
+[data-theme="night"] .entry-you-badge {
+  color: var(--golden-light);
+}
+
+.entry-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .entry-date {
   font-family: var(--font-mono);
   font-size: 0.65rem;
   color: var(--text-muted);
+}
+
+.entry-delete-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-fast);
+}
+
+.entry-delete-btn:hover {
+  color: #D90429;
 }
 
 .entry-body {

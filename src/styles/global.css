@@ -233,3 +233,89 @@ a:hover { color: var(--accent-hover); }
   background: var(--golden);
   color: var(--night-bg);
 }
+
+/* ── Returning Visitor Welcome Banner ── */
+.welcome-back-banner {
+  position: fixed;
+  top: calc(var(--nav-height) + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  animation: slide-up 0.4s ease-out;
+  pointer-events: auto;
+}
+
+.welcome-banner-content {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--bg-card);
+  border: 2px solid var(--golden);
+  border-radius: var(--radius-full);
+  padding: 8px 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-heading);
+}
+
+.welcome-star {
+  color: var(--golden);
+  flex-shrink: 0;
+}
+
+.welcome-dismiss-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  margin-left: 6px;
+}
+
+.welcome-dismiss-btn:hover {
+  color: var(--accent);
+}
+
+/* ── Quick Action Floating Dock ── */
+.quick-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 90;
+}
+
+.dock-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: all var(--duration-fast);
+}
+
+.dock-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.1);
+}
+
+.dock-active {
+  background: var(--golden);
+  color: var(--night-bg);
+  border-color: var(--golden);
+  box-shadow: 0 0 14px rgba(255, 217, 122, 0.6);
+}
