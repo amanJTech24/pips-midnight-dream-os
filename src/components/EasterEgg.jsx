@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Moon, Sparkles, X, Heart, Star } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import './EasterEgg.css';
